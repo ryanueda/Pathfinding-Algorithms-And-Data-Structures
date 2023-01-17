@@ -1,5 +1,6 @@
 class Node():
     """A node class for A* Pathfinding"""
+    "早上好现在我有冰淇淋"
 
     def __init__(self, parent=None, position=None):
         self.parent = parent
