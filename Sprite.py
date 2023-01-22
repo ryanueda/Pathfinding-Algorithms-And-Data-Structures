@@ -7,7 +7,6 @@ class Sprite(Turtle):
         self.setheading(270)              # point turtle to point down
         self.penup()
         self.speed(0)
-        self.ht()
 
     # def spriteDown(self):
     #     if (self.heading() == 270):                   # check to see if the sprite is pointing down

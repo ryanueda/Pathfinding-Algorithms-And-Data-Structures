@@ -1,9 +1,9 @@
 from Maze import Maze
 from End import End
 from Sprite import Sprite
-# from turtle import Turtle, Screen
 import turtle
 import time, sys
+from lefthand import LeftHand
 
 screen = turtle.Screen() # Define turtle screen
 screen.bgcolor('white')
@@ -16,7 +16,10 @@ class Main(turtle.Turtle):
         self.sprite = Sprite()
         self.end = End()
         self.walls = []
+        self.start = []
         self.finish = []
+        self.boxes = []
+        self.lefthand = LeftHand(self.start, self.finish, self.walls, self.boxes)
 
     def fileio(self):
         turtle.speed(0)
@@ -28,7 +31,7 @@ class Main(turtle.Turtle):
         while True:
             # filepath = input('Enter filename: ')
             filepath = 'city_map'
-            filename = open(f'dsaa/{filepath}')
+            filename = open(f'./{filepath}')
             content = filename.read()
             grid = content.split('\n')
 
@@ -81,6 +84,12 @@ class Main(turtle.Turtle):
 
                 if character == "s":                     # if the grid character contains an s
                     self.sprite.goto(screen_x, screen_y)      # move turtle to the x and y location
+                    self.start.append((screen_x, screen_y))
+                
+                if character == ".":
+                    self.boxes.append((screen_x, screen_y))
+
+        self.lefthand.working()
 
 main = Main()
 main.fileio()
