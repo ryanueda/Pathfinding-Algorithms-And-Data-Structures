@@ -33,7 +33,7 @@ class sprite(turtle.Turtle):
         self.color("red")
         self.setheading(270)  # point turtle to point down
         self.penup()
-        self.speed(0)
+        # self.speed(0)
 
 
     def spriteDown(self):

@@ -89,7 +89,7 @@ class Main(turtle.Turtle):
                 if character == ".":
                     self.boxes.append((screen_x, screen_y))
 
-        self.lefthand.working()
+        self.lefthand.setup()
 
 main = Main()
 main.fileio()
