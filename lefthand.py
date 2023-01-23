@@ -9,10 +9,6 @@ class LeftHand():
         self.G = nx.Graph()
 
     def setup(self):
-        # self.G.add_nodes_from(self.boxes)
-        # self.G.add_nodes_from(self.start)
-        # self.G.add_nodes_from(self.finish)
-
         for i in range(len(self.boxes)):
             for j in range(len(self.boxes)):
                 if i != j:
@@ -40,11 +36,9 @@ class LeftHand():
                 if (horizontal_distance == 24 and vertical_distance == 0) or (horizontal_distance == 0 and vertical_distance == 24):
                         self.G.add_edge(self.finish[i], self.boxes[j])
 
-        # print(self.G.edges)
         self.path = nx.shortest_path(self.G, self.start[0], self.finish[0])
-        # print(self.path)
-        # print(list(self.G.neighbors(self.start[0])))
-        self.move()
+        results = self.move()
+        return results
 
     def neighbors(self, node, direction):
         # Define directions
@@ -77,79 +71,91 @@ class LeftHand():
         return neighbors_in_direction
 
     def move(self):
+        path = []
+        d = []
         current_node = self.start[0]
         direction = 'up'
-        for i in range(30):
-
-            print(direction)
+        while True:
             neighbors = self.neighbors(current_node, direction)
-            print(neighbors)
-            print(f'Current {current_node}, Finished {self.finish[0]}')
 
             if neighbors['left'] is not None:
                 current_node = neighbors['left']
+                path.append(neighbors['left'])
+
                 if direction == 'up':
                     direction = 'left'
+                    d.append('left')
+
                 elif direction == 'right':
                     direction = 'up'
+                    d.append('up')
+
                 elif direction == 'down':
                     direction = 'right'
+                    d.append('right')
+
                 elif direction == 'left':
                     direction = 'down'
+                    d.append('down')
 
             elif neighbors['up'] is not None:
                 current_node = neighbors['up'] 
+                path.append(neighbors['up'])
+
+                if direction == 'up':
+                    d.append('up')
+
+                elif direction == 'right':
+                    d.append('right')
+                    
+                elif direction == 'down':
+                    d.append('down')
+
+                elif direction == 'left':
+                    d.append('left')
 
             elif neighbors['right'] is not None:
                 current_node = neighbors['right']
+                path.append(neighbors['right'])
+
                 if direction == 'up':
                     direction = 'right'
+                    d.append('right')
+
                 elif direction == 'right':
                     direction = 'down'
+                    d.append('down')
+
                 elif direction == 'down':
                     direction = 'left'
+                    d.append('left')
+
                 elif direction == 'left':
                     direction = 'up'
+                    d.append('up')
 
             elif neighbors['down'] is not None:
                 current_node = neighbors['down']
+                path.append(neighbors['down'])
+
                 if direction == 'up':
                     direction = 'down'
+                    d.append('down')
+
                 elif direction == 'right':
                     direction = 'left'
+                    d.append('left')
+
                 elif direction == 'down':
                     direction = 'up'
+                    d.append('up')
+                    
                 elif direction == 'left':
                     direction = 'right'
-
-            
+                    d.append('right')
 
             if current_node == self.finish[0]:
                 print('REACHED!!!')
                 break
 
-
-        # current_node = self.start[0]
-        # counter = 0
-        # direction = {
-        #     'north': [0, 1, 2, 3],
-        #     'east': [1, 2, 3, 0]
-        # }
-        # orientation = 'north'
-
-        # for i in range(15):
-        #     next_nodes = list(self.G.neighbors(current_node))
-        #     left_node = None
-        #     for next_node in next_nodes:
-        #         if next_node < current_node:
-        #             left_node = next_node
-        #             break
-        #     if left_node is None:
-        #         for next_node in next_nodes:
-        #             if next_node > current_node:
-        #                 left_node = next_node
-        #                 break
-
-        #     print(f'Current {current_node}, neighbors {next_nodes}')
-            
-        #     current_node = left_node
+        return path, d

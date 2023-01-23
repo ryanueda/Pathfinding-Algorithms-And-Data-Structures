@@ -89,8 +89,20 @@ class Main(turtle.Turtle):
                 if character == ".":
                     self.boxes.append((screen_x, screen_y))
 
-        self.lefthand.setup()
-
+        results, d = self.lefthand.setup()
+        print(results)
+        print(d)
+        for i in range(len(results)):
+            if d[i] == 'right':
+                self.sprite.setheading(0)
+            elif d[i] == 'left':
+                self.sprite.setheading(180)
+            elif d[i] == 'up':
+                self.sprite.setheading(90)
+            elif d[i] == 'down':
+                self.sprite.setheading(270)
+            self.sprite.goto(results[i])
+            
 main = Main()
 main.fileio()
 screen.exitonclick()
