@@ -5,8 +5,13 @@ class Node():
         self.parent = parent
         self.position = position
 
+        # G Cost - Distance from starting node
         self.g = 0
+
+        # H Cost - Distance from end node
         self.h = 0
+
+        # F Cost - G Cost + H Cost
         self.f = 0
 
     def __eq__(self, other):
@@ -98,19 +103,15 @@ def astar(maze, start, end):
 
 def main():
 
-    maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    maze = [[0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+            [0, 1, 0, 0, 0, 0, 1, 0, 1, 1],
+            [0, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+            [1, 0, 1, 1, 1, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+            [0, 1, 1, 0, 0, 0, 1, 0, 0, 0]]
 
-    start = (0, 0)
-    end = (7, 6)
+    start = (5, 0)
+    end = (0, 9)
 
     path = astar(maze, start, end)
     print(path)

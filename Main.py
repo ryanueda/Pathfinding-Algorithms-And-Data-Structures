@@ -4,6 +4,8 @@ from Sprite import Sprite
 import turtle
 import time, sys
 from lefthand import LeftHand
+from astar import astar
+import networkx as nx
 
 screen = turtle.Screen() # Define turtle screen
 screen.bgcolor('white')
@@ -20,6 +22,7 @@ class Main(turtle.Turtle):
         self.finish = []
         self.boxes = []
         self.lefthand = LeftHand(self.start, self.finish, self.walls, self.boxes)
+        self.astar = astar(self.start, self.finish, self.walls, self.boxes)
 
     def fileio(self):
         turtle.speed(0)
@@ -89,19 +92,22 @@ class Main(turtle.Turtle):
                 if character == ".":
                     self.boxes.append((screen_x, screen_y))
 
-        results, d = self.lefthand.setup()
+        # self.lefthand.setup()
+        # results, d = self.lefthand.move()
+
+        results = self.astar.setup()
         print(results)
-        print(d)
-        for i in range(len(results)):
-            if d[i] == 'right':
-                self.sprite.setheading(0)
-            elif d[i] == 'left':
-                self.sprite.setheading(180)
-            elif d[i] == 'up':
-                self.sprite.setheading(90)
-            elif d[i] == 'down':
-                self.sprite.setheading(270)
-            self.sprite.goto(results[i])
+        
+        # for i in range(len(results)):
+        #     if d[i] == 'right':
+        #         self.sprite.setheading(0)
+        #     elif d[i] == 'left':
+        #         self.sprite.setheading(180)
+        #     elif d[i] == 'up':
+        #         self.sprite.setheading(90)
+        #     elif d[i] == 'down':
+        #         self.sprite.setheading(270)
+            # self.sprite.goto(results[i])
             
 main = Main()
 main.fileio()

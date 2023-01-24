@@ -36,10 +36,9 @@ class LeftHand():
                 if (horizontal_distance == 24 and vertical_distance == 0) or (horizontal_distance == 0 and vertical_distance == 24):
                         self.G.add_edge(self.finish[i], self.boxes[j])
 
-        self.path = nx.shortest_path(self.G, self.start[0], self.finish[0])
-        results = self.move()
-        return results
-
+        # self.path = nx.astar_path(self.G, self.start[0], self.finish[0])
+        # print(self.path)
+        
     def neighbors(self, node, direction):
         # Define directions
         if direction == 'up':
