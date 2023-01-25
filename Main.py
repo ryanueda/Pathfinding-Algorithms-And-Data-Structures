@@ -32,17 +32,16 @@ class Main(turtle.Turtle):
         turtle.penup()
 
         while True:
-            # filepath = input('Enter filename: ')
-            filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     ## use turtle text input box instead of terminal
-            filepath = f'dsaa/{filepath}'
+            # filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     ## use turtle text input box instead of terminal
+            # filepath = f'./{filepath}'
 
-            try:                                                                    ## catch errors if file does not exist/empty input
-                filename = open(filepath)
-            except FileNotFoundError or PermissionError:
-                continue
+            # try:                                                                    ## catch errors if file does not exist/empty input
+            #     filename = open(filepath)
+            # except FileNotFoundError or PermissionError:
+            #     continue
 
-            # filename = open(filepath)
-            # filename = open(f'./{filepath}')
+            filepath = 'city_map'
+            filename = open(f'./{filepath}')
 
             content = filename.read()
             grid = content.split('\n')
@@ -112,7 +111,7 @@ class Main(turtle.Turtle):
         results = self.astar.setup()
         print(results)
         
-        # for i in range(len(results)):
+        for i in range(len(results)):
         #     if d[i] == 'right':
         #         self.sprite.setheading(0)
         #     elif d[i] == 'left':
@@ -121,7 +120,7 @@ class Main(turtle.Turtle):
         #         self.sprite.setheading(90)
         #     elif d[i] == 'down':
         #         self.sprite.setheading(270)
-            # self.sprite.goto(results[i])
+            self.sprite.goto(results[i])
             
 main = Main()
 main.fileio()

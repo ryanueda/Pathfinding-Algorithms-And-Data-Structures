@@ -6,4 +6,4 @@ class Sprite(Turtle):
         self.color("red")
         self.setheading(270)              # point turtle to point down
         self.penup()
-        # self.speed(0)
+        # self.speed(3)

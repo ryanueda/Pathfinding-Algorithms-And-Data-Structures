@@ -60,7 +60,7 @@ def astar(maze, start, end):
 
         # Generate children
         children = []
-        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]: # Adjacent squares
+        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]: # Adjacent squares
 
             # Get node position
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
@@ -81,10 +81,12 @@ def astar(maze, start, end):
 
         # Loop through children
         for child in children:
-
+            is_closed = False
             # Child is on the closed list
             for closed_child in closed_list:
                 if child == closed_child:
+                    is_closed = True
+                if is_closed:
                     continue
 
             # Create the f, g, and h values
@@ -107,7 +109,7 @@ def main():
             [0, 1, 0, 0, 0, 0, 1, 0, 1, 1],
             [0, 0, 1, 0, 1, 0, 1, 0, 1, 0],
             [1, 0, 1, 1, 1, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
             [0, 1, 1, 0, 0, 0, 1, 0, 0, 0]]
 
     start = (5, 0)
