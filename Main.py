@@ -28,13 +28,22 @@ class Main(turtle.Turtle):
         turtle.speed(0)
         turtle.penup()
         turtle.goto(TURTLE_SIZE/2 - screen.window_width()/2, screen.window_height()/2.2 - TURTLE_SIZE/2)
-        turtle.write('Please enter file name on terminal ', font=("Verdana", 10, "normal"))
+        # turtle.write('Please enter file name on terminal ', font=("Verdana", 10, "normal"))
         turtle.penup()
 
         while True:
             # filepath = input('Enter filename: ')
-            filepath = 'city_map'
-            filename = open(f'./{filepath}')
+            filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     ## use turtle text input box instead of terminal
+            filepath = f'dsaa/{filepath}'
+
+            try:                                                                    ## catch errors if file does not exist/empty input
+                filename = open(filepath)
+            except FileNotFoundError or PermissionError:
+                continue
+
+            # filename = open(filepath)
+            # filename = open(f'./{filepath}')
+
             content = filename.read()
             grid = content.split('\n')
 
@@ -44,25 +53,30 @@ class Main(turtle.Turtle):
                 # check for equal number of rows
                 if len(row) != len(grid[0]):
                     print('Invalid File Format: unequal number of characters per line')
+                    filepath = turtle.textinput('Invalid File Format', 'Enter File Name Below:')
                     continue
 
                 # check for invalid characters in file
                 for char in range(len(row)):
                     if row[char] not in ['X', '.', 's', 'e']:
                         print("Invalid File Format: Maze has invalid characters")
+                        filepath = turtle.textinput('Invalid File Format', 'Enter File Name Below:')
+                        continue
 
                 # check if vertical borders are all "X"
                 if row[0] != "X" or row[-1] != "X":
                     print("Invalid File Format: Maze has incomplete borders")
+                    filepath = turtle.textinput('Invalid File Format', 'Enter File Name Below:')
                     continue
 
             # check if horizontal borders are all "X"
             if set(grid[0]) != {"X"} or set(grid[-1]) != {"X"}:
                 print("Invalid File Format: Maze has incomplete borders")
+                filepath = turtle.textinput('Invalid File Format', 'Enter File Name Below:')
                 continue
             break
 
-        print('Passed validation')
+        print('File Validation Passed')
         turtle.clear()
         turtle.write('PIZZA RUNNERS: Done by Wee Leong & Ryan DAAA/FT/2B/05', font=("Verdana", 10, "normal"))
         turtle.ht()
