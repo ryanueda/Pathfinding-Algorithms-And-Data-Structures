@@ -6,6 +6,7 @@ import time, sys
 from lefthand import LeftHand
 from astar import astar
 import networkx as nx
+import os
 
 screen = turtle.Screen() # Define turtle screen
 screen.bgcolor('white')
@@ -34,11 +35,22 @@ class Main(turtle.Turtle):
         while True:
             # filepath = input('Enter filename: ')
             filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     ## use turtle text input box instead of terminal
-            filepath = f'dsaa/{filepath}'
+
+            try:                                                                    ## ensures that input works regardless of directory or folder
+                cwd = os.getcwd()
+                for root, dirs, files in os.walk(cwd):
+                    for file in files:
+                        if file == filepath:
+                            filepath = os.path.join(root, file)
+            except:
+                print('error')
+
+            # filepath = f'dsaa/{filepath}'
 
             try:                                                                    ## catch errors if file does not exist/empty input
                 filename = open(filepath)
             except FileNotFoundError or PermissionError:
+                print('File Not Found Or Invalid File Input')
                 continue
 
             # filename = open(filepath)
@@ -75,6 +87,7 @@ class Main(turtle.Turtle):
                 filepath = turtle.textinput('Invalid File Format', 'Enter File Name Below:')
                 continue
             break
+            
 
         print('File Validation Passed')
         turtle.clear()
