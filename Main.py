@@ -6,6 +6,7 @@ import time, sys
 from lefthand import LeftHand
 from astar import astar
 import networkx as nx
+import os
 
 screen = turtle.Screen() # Define turtle screen
 screen.bgcolor('white')
@@ -32,16 +33,27 @@ class Main(turtle.Turtle):
         turtle.penup()
 
         while True:
-            # filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     ## use turtle text input box instead of terminal
+            filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     ## use turtle text input box instead of terminal
+
+            try:                                                                    ## ensures that input works regardless of directory or folder
+                cwd = os.getcwd()
+                for root, dirs, files in os.walk(cwd):
+                    for file in files:
+                        if file == filepath:
+                            filepath = os.path.join(root, file)
+            except:
+                print('error')
+
             # filepath = f'./{filepath}'
 
-            # try:                                                                    ## catch errors if file does not exist/empty input
-            #     filename = open(filepath)
-            # except FileNotFoundError or PermissionError:
-            #     continue
+            try:                                                                    ## catch errors if file does not exist/empty input
+                filename = open(filepath)
+            except FileNotFoundError or PermissionError:
+                print('File Not Found Or Invalid File Input')
+                continue
 
-            filepath = 'city_map'
-            filename = open(f'./{filepath}')
+            # filepath = 'city_map'
+            # filename = open(f'./{filepath}')
 
             content = filename.read()
             grid = content.split('\n')
@@ -74,6 +86,7 @@ class Main(turtle.Turtle):
                 filepath = turtle.textinput('Invalid File Format', 'Enter File Name Below:')
                 continue
             break
+            
 
         print('File Validation Passed')
         turtle.clear()
@@ -109,7 +122,6 @@ class Main(turtle.Turtle):
         # results, d = self.lefthand.move()
 
         results = self.astar.setup()
-        print(results)
         
         for i in range(len(results)):
         #     if d[i] == 'right':

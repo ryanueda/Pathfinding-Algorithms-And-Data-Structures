@@ -38,8 +38,8 @@ class astar():
                 if (horizontal_distance == 24 and vertical_distance == 0) or (horizontal_distance == 0 and vertical_distance == 24):
                         self.G.add_edge(self.finish[i], self.boxes[j])
 
-        self.path = nx.astar_path(self.G, self.start[0], self.finish[0])
-        print(self.path)
+        # self.path = nx.astar_path(self.G, self.start[0], self.finish[0])
+        # print(self.path)
         results = self.move()
         return results
 
@@ -86,9 +86,8 @@ class astar():
             closed_list.append(current_node)
 
             # Found the goal
-            print(current_node.position, end_node.position)
+            # print(current_node.position, end_node.position)
             if current_node == end_node:
-                print('YAY')
                 path = []
                 current = current_node
                 while current is not None:
