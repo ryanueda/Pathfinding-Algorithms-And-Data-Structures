@@ -1,10 +1,10 @@
 from turtle import Turtle
 
-class Maze(Turtle):
+class Building(Turtle):
     def __init__(self):
         Turtle.__init__(self)
         self.shape("square")
-        self.pensize("gray")
         self.penup()
+        self.color('gray')
         self.speed(0)
         self.ht()

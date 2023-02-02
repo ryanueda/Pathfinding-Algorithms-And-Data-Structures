@@ -93,7 +93,8 @@ class astar():
                 while current is not None:
                     path.append(current.position)
                     current = current.parent
-                return path[::-1] # Return reversed path
+                reversed_path = path[::-1]
+                return reversed_path[1:] # Return reversed path
 
             # Generate children
             children = []

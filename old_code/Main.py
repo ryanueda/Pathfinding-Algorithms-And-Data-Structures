@@ -10,14 +10,14 @@ import os
 
 screen = turtle.Screen() # Define turtle screen
 screen.bgcolor('white')
-screen.setup(1300, 700) # Dimension of working window
+screen.setup(1, 1) # Dimension of working window
 TURTLE_SIZE = 20
 
 class Main(turtle.Turtle):
     def __init__(self):
-        self.maze = Building()
+        self.maze = Maze()
         self.sprite = Sprite()
-        self.end = Start_End()
+        self.end = End()
         self.walls = []
         self.start = []
         self.finish = []
@@ -58,7 +58,7 @@ class Main(turtle.Turtle):
 
             content = filename.read()
             grid = content.split('\n')
-            turtle.title('Setting up grid')
+
             for line in range(len(grid)):
                 row = grid[line]
 
@@ -103,107 +103,27 @@ class Main(turtle.Turtle):
                 screen_y = 288 - (y * 24)                # assign screen_y to screen starting position for y ie  288
 
                 if character == "X":                     # if grid character contains an +
-                    self.maze.goto(screen_x, screen_y)        # move turtle to the x and y location and
+                    self.maze.goto(screen_x, screen_y)        # move turtle to the x and y location and     
                     self.maze.stamp()                         # stamp a copy of the turtle (white square) on the screen
-                    
-                    # self.maze.setposition(screen_x - 12, screen_y + 12)
-                    # self.maze.pendown()
-                    # self.maze.color('black')
-                    # for i in range(4):
-                    #     # self.maze.goto(screen_x - 24, screen_y)
-                    #     self.maze.forward(23)
-                    #     self.maze.right(90)
-                    # self.maze.color('gray')
-                    # self.maze.penup()
-                    
                     self.walls.append((screen_x, screen_y))   # add coordinate to walls list
 
                 if character == "e":                     # if grid character contains an e
                     self.end.goto(screen_x, screen_y)         # move turtle to the x and y location and
                     self.end.stamp()                          # stamp a copy of the turtle (green square) on the screen
-                    
-                    # self.maze.setposition(screen_x - 12, screen_y + 12)
-                    # self.maze.pendown()
-                    # self.maze.color('black')
-                    # for i in range(4):
-                    #     # self.maze.goto(screen_x - 24, screen_y)
-                    #     self.maze.forward(23)
-                    #     self.maze.right(90)
-                    # self.maze.color('gray')
-                    # self.maze.penup()
-                    
                     self.finish.append((screen_x, screen_y))  # add coordinate to finish list
 
                 if character == "s":                     # if the grid character contains an s
-                    self.end.goto(screen_x, screen_y)
-                    self.end.stamp()
                     self.sprite.goto(screen_x, screen_y)      # move turtle to the x and y location
-
-                    # self.maze.setposition(screen_x - 12, screen_y + 12)
-                    # self.maze.pendown()
-                    # self.maze.color('black')
-                    # for i in range(4):
-                    #     # self.maze.goto(screen_x - 24, screen_y)
-                    #     self.maze.forward(23)
-                    #     self.maze.right(90)
-                    # self.maze.color('gray')
-                    # self.maze.penup()
-
-                    start = (screen_x, screen_y)
                     self.start.append((screen_x, screen_y))
                 
                 if character == ".":
-
-                    # self.maze.setposition(screen_x - 12, screen_y + 12)
-                    # self.maze.pendown()
-                    # self.maze.color('black')
-                    # for i in range(4):
-                    #     # self.maze.goto(screen_x - 24, screen_y)
-                    #     self.maze.forward(23)
-                    #     self.maze.right(90)
-                    # self.maze.color('gray')
-                    # self.maze.penup()
-
                     self.boxes.append((screen_x, screen_y))
 
-        turtle.title('Left Hand Maze Solver')
         self.lefthand.setup()
         results, d = self.lefthand.move()
-        self.aaa(results)
-
-        def fxn():
-            global current_solver
-            try: 
-                current_solver
-            except NameError:
-                current_solver = 'lh'
-
-            print(current_solver)
-            if current_solver == 'lh':
-                turtle.title('A Star Maze Solver')
-                self.sprite.clear()
-                self.sprite.goto(start)
-                self.sprite.pendown()
-                results = self.astar.setup()
-                self.aaa(results)
-                current_solver = 'astar'
-            else:
-                turtle.title('Left Hand Maze Solver')
-                self.sprite.clear()
-                self.sprite.goto(start)
-                self.sprite.pendown()
-                self.lefthand.setup()
-                results, d = self.lefthand.move()
-                self.aaa(results)
-                current_solver = 'lh'
-                
-
-        turtle.onkey(fxn, 'Tab')
 
         # results = self.astar.setup()
         # print(results)
-    def aaa(self, results):
-        steps = 0
         for i in range(len(results)):
             # print(self.sprite.position())
             # print(self.sprite.position()[0] + 24 == results[i][0])
@@ -236,13 +156,8 @@ class Main(turtle.Turtle):
         #     elif d[i] == 'down':
         #         self.sprite.setheading(270)
             self.sprite.pendown()
-            turtle.title(f'Left Hand Maze Solver (Steps taken: {steps})')
             self.sprite.goto(results[i])
-            steps += 1
-        self.sprite.penup()
-        
-        # turtle.title(f'Left Hand Maze Solver (Steps taken: {steps})')
             
 main = Main()
 main.fileio()
-turtle.done()
+screen.exitonclick()
