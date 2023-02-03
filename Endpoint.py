@@ -1,6 +1,6 @@
 from turtle import Turtle
 
-class Start_End(Turtle):
+class Endpoint(Turtle):
     def __init__(self):
         Turtle.__init__(self)
         self.shape("square")

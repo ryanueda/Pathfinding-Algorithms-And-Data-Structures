@@ -1,6 +1,6 @@
-from Building import Building
-from Start_End import Start_End
-from Sprite import Sprite
+from old_code.Building import Building
+from old_code.Endpoint import Start_End
+from old_code.Sprite import Sprite
 import turtle
 import time, sys
 from old_code.lefthand import LeftHand

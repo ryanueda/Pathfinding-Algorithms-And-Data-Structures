@@ -1,10 +1,10 @@
 from Building import Building
-from Start_End import Start_End
+from Endpoint import Endpoint
 from Sprite import Sprite
 import turtle
 import time, sys
-from old_code.lefthand import LeftHand
-from old_code.astar import astar
+from lefthand import LeftHand
+from astar import astar
 import networkx as nx
 import os
 
@@ -17,7 +17,7 @@ class Main(turtle.Turtle):
     def __init__(self):
         self.maze = Building()
         self.sprite = Sprite()
-        self.end = Start_End()
+        self.end = Endpoint()
         self.walls = []
         self.start = []
         self.finish = []
@@ -32,11 +32,12 @@ class Main(turtle.Turtle):
         turtle.goto(TURTLE_SIZE/2 - screen.window_width()/2, screen.window_height()/2.2 - TURTLE_SIZE/2)
         # turtle.write('Please enter file name on terminal ', font=("Verdana", 10, "normal"))
         turtle.penup()
-
+        
+        filepath = turtle.textinput('Enter File', 'Enter File Name Below:')
         while True:
-            # filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     ## use turtle text input box instead of terminal
+            ## use turtle text input box instead of terminal
             # For Testing
-            filepath = 'city_map'
+            # filepath = 'city_map'
             try:                                                                    ## ensures that input works regardless of directory or folder
                 cwd = os.getcwd()
                 for root, dirs, files in os.walk(cwd):
@@ -52,6 +53,7 @@ class Main(turtle.Turtle):
                 filename = open(filepath)
             except FileNotFoundError or PermissionError:
                 print('File Not Found Or Invalid File Input')
+                filepath = turtle.textinput('Invalid File Name', 'Enter File Name Below:')
                 continue
 
             # filepath = 'city_map'
@@ -66,7 +68,8 @@ class Main(turtle.Turtle):
                 # check for equal number of rows
                 if len(row) != len(grid[0]):
                     print('Invalid File Format: unequal number of characters per line')
-                    filepath = turtle.textinput('Invalid File Format', 'Enter File Name Below:')
+                    del grid
+                    filepath = turtle.textinput('Invalid File Format. Check terminal', 'Enter File Name Below:')
                     continue
 
                 # check for invalid characters in file
@@ -246,7 +249,8 @@ class Main(turtle.Turtle):
         self.sprite.penup()
         
         # turtle.title(f'Left Hand Maze Solver (Steps taken: {steps})')
-            
-main = Main()
-main.fileio()
-turtle.done()
+
+if __name__ == '__main__':
+    main = Main()
+    main.fileio()
+    turtle.done()
