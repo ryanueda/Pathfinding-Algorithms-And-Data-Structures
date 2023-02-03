@@ -24,6 +24,7 @@ class Main(turtle.Turtle):
         self.boxes = []
         self.lefthand = LeftHand(self.start, self.finish, self.walls, self.boxes)
         self.astar = astar(self.start, self.finish, self.walls, self.boxes)
+        self.solver = ''
 
     def fileio(self):
         turtle.speed(0)
@@ -167,6 +168,7 @@ class Main(turtle.Turtle):
                     self.boxes.append((screen_x, screen_y))
 
         turtle.title('Left Hand Maze Solver')
+        self.solver = 'Left Hand'
         self.lefthand.setup()
         results, d = self.lefthand.move()
         self.aaa(results)
@@ -181,6 +183,7 @@ class Main(turtle.Turtle):
             print(current_solver)
             if current_solver == 'lh':
                 turtle.title('A Star Maze Solver')
+                self.solver = 'A Star'
                 self.sprite.clear()
                 self.sprite.goto(start)
                 self.sprite.pendown()
@@ -189,6 +192,7 @@ class Main(turtle.Turtle):
                 current_solver = 'astar'
             else:
                 turtle.title('Left Hand Maze Solver')
+                self.solver = 'Left Hand'
                 self.sprite.clear()
                 self.sprite.goto(start)
                 self.sprite.pendown()
@@ -236,7 +240,7 @@ class Main(turtle.Turtle):
         #     elif d[i] == 'down':
         #         self.sprite.setheading(270)
             self.sprite.pendown()
-            turtle.title(f'Left Hand Maze Solver (Steps taken: {steps})')
+            turtle.title(f'{self.solver} Maze Solver (Steps taken: {steps})')
             self.sprite.goto(results[i])
             steps += 1
         self.sprite.penup()
