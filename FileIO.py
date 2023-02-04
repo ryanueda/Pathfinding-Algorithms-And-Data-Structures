@@ -1,11 +1,14 @@
 import turtle
 import os 
-from Maze import Maze
 
 class FileIO():
     def __init__(self):
-        self.maze = Maze()
         turtle.screensize(1300, 700)
+        self.screen = turtle.Screen()
+        self.grid = None
+
+    def getgrid(self):
+        return self.grid
 
     def validation(self):
         filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     # Uses Turtle to get input from user
@@ -30,16 +33,16 @@ class FileIO():
                 continue
 
             content = filename.read()
-            grid = content.split('\n')
+            self.grid = content.split('\n')
             turtle.title('Checking File Format...')
 
-            for line in range(len(grid)):
-                row = grid[line]
+            for line in range(len(self.grid)):
+                row = self.grid[line]
 
                 # check for equal number of rows
-                if len(row) != len(grid[0]):
+                if len(row) != len(self.grid[0]):
                     print('Invalid File Format: unequal number of characters per line')
-                    del grid    # Ensures Turtle doesn't render the maze if file is invalid
+                    self.grid = None    # Ensures Turtle doesn't render the maze if file is invalid
                     filepath = turtle.textinput('Invalid File Format. Check Terminal', 'Enter File Name Below:')
                     continue
 
@@ -47,31 +50,30 @@ class FileIO():
                 for char in range(len(row)):
                     if row[char] not in ['X', '.', 's', 'e']:
                         print("Invalid File Format: Maze has invalid characters")
-                        del grid    # Ensures Turtle doesn't render the maze if file is invalid
+                        self.grid = None    # Ensures Turtle doesn't render the maze if file is invalid
                         filepath = turtle.textinput('Invalid File Format. Check Terminal', 'Enter File Name Below:')
                         continue
 
                 # check if vertical borders are all "X"
                 if row[0] != "X" or row[-1] != "X":
                     print("Invalid File Format: Maze has incomplete borders")
-                    del grid    # Ensures Turtle doesn't render the maze if file is invalid
+                    self.grid = None    # Ensures Turtle doesn't render the maze if file is invalid
                     filepath = turtle.textinput('Invalid File Format. Check Terminal', 'Enter File Name Below:')
                     continue
 
             # check if horizontal borders are all "X"
-            if set(grid[0]) != {"X"} or set(grid[-1]) != {"X"}:
+            if set(self.grid[0]) != {"X"} or set(self.grid[-1]) != {"X"}:
                 print("Invalid File Format: Maze has incomplete borders")
-                del grid    # Ensures Turtle doesn't render the maze if file is invalid
+                self.grid = None    # Ensures Turtle doesn't render the maze if file is invalid
                 filepath = turtle.textinput('Invalid File Format. Check Terminal', 'Enter File Name Below:')
                 continue
             break
             
-
         print('File Validation Passed')
-        turtle.clear()
-        turtle.write('PIZZA RUNNERS: Done by Wee Leong & Ryan DAAA/FT/2B/05', font=("Verdana", 10, "normal"))
-        turtle.ht()
-        self.maze.setupmaze(grid)
 
-aaa = FileIO()
-aaa.validation()
+        turtle.ht()
+    
+
+if __name__ == '__main__':
+    aaa = FileIO()
+    aaa.validation()

@@ -1,16 +1,15 @@
 import turtle
-from old_code.test import Main
+# from old_code.test import Main
 
 screen = turtle.Screen()
 screen.setup(1300, 700)
 
 class Button(turtle.Turtle):
     # Call the parent turtle class
-    def __init__(self, parent_turtle, len_x = 300, len_y = 100):
+    def __init__(self, len_x = 300, len_y = 100):
         super().__init__()
         self.speed(0)
         
-        self.parent_turtle = parent_turtle
         self.len_x = len_x
         self.len_y = len_y
 
@@ -41,24 +40,25 @@ class Button(turtle.Turtle):
             turtle.onscreenclick(self.button_click, 1) # Detect a click on the button
         
         else:
-            turtle.onscreenclick(self.non_default, 1)
+            # turtle.onscreenclick(self.non_default, 1)
+            turtle.onscreenclick(func, 1)
 
     # Test if button works as expected
     def button_click(self, x, y):
         if x > self.x and x < (self.x + self.len_x) and y > self.y and y < (self.y + self.len_y):
             print('Button clicked')
 
-    def non_default(self, x, y):
-        if x > self.x and x < (self.x + self.len_x) and y > self.y and y < (self.y + self.len_y):
-            turtle.onscreenclick(None)
-            self.clear()
-            self.parent_turtle.clear()
-            self.func()
+    # def non_default(self, x, y):
+    #     if x > self.x and x < (self.x + self.len_x) and y > self.y and y < (self.y + self.len_y):
+    #         turtle.onscreenclick(None)
+    #         self.clear()
+    #         self.parent_turtle.clear()
+    #         self.func()
 
 
 # Test if the button class works as expected
-if __name__ == '__main__':
-    button = Button()
-    main2 = Main()
-    button.draw_button(-400, -100, 'hello', 'black', 'white', main2.fileio)
-    turtle.done()
+# if __name__ == '__main__':
+#     button = Button()
+#     main2 = Main()
+#     button.draw_button(-400, -100, 'hello', 'black', 'white', main2.fileio)
+#     turtle.done()

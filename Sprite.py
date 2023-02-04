@@ -6,5 +6,5 @@ class Sprite(Turtle):
         self.color("red")
         self.penup()
         self.shapesize(0.5, 0.5, 1)
-        # self.speed(0)
+        self.speed(0)
         self.ht()
