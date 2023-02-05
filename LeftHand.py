@@ -45,16 +45,17 @@ class LeftHand(Maze):
             neighbors = self.neighbors(current_node, current_direction)
             faceindex = directions.index(current_direction)
 
+            # Follows LHR priority rule - left, up, right, down
             if neighbors['left'] is not None:
                 current_node = neighbors['left']
                 path.append(neighbors['left'])
 
-                if faceindex == len(directions) - 1:
+                if faceindex == len(directions) - 1:    # If current direction is right, then next direction is up
                     current_direction = directions[0]
                 else:
                     current_direction = directions[faceindex + 1]
             
-            elif neighbors['up'] is not None:
+            elif neighbors['up'] is not None:   # Up is always the next direction
                 current_node = neighbors['up']
                 path.append(neighbors['up'])
             
@@ -62,7 +63,7 @@ class LeftHand(Maze):
                 current_node = neighbors['right']
                 path.append(neighbors['right'])
 
-                if faceindex == 0:
+                if faceindex == 0: # If current direction is up, then next direction is right
                     current_direction = directions[-1]
                 else:
                     current_direction = directions[faceindex - 1]
@@ -71,19 +72,18 @@ class LeftHand(Maze):
                 current_node = neighbors['down']
                 path.append(neighbors['down'])
 
-                if faceindex + 2 > len(directions) - 1:
+                if faceindex + 2 > len(directions) - 1: # If current direction is right, then next direction is left, if current direction is down, the next direction is up
                     current_direction = directions[faceindex - 2]
                 else:
                     current_direction = directions[faceindex + 2]
             
-            if current_node == self.start[0]:
+            if current_node == self.start[0]:   # If the current node is the start node, then the path is not valid
                 path.append(False)
                 break
         
         return path
 
     def moveSprite(self, results, solver):
-        self.sprite.clear()
         super().moveSprite(results, solver)
 
     def clearSprite(self):

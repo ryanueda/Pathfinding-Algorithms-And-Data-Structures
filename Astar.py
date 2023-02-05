@@ -4,7 +4,7 @@ from Minheap import MinHeap
 
 class astar(Maze):
     def __init__(self):
-        super().__init__()
+        super().__init__()  # Inherit Maze class
         self.minheap = MinHeap()
 
     def pathfinding(self):
@@ -42,10 +42,10 @@ class astar(Maze):
                 while current is not None:
                     path.append(current.position)
                     current = current.parent
-                path.reverse()
-                return path[1:] # Return reversed path
+                path.reverse()  # Return reversed path
+                return path[1:] # Obtain path without start node
             
-            if current_node == start_node and len(open_list) != 0:
+            if current_node == start_node and len(open_list) != 0:  # Condition is met if sprite goes back to start node, which should not happen. This indicates maze is unsolvable
                 path.append(False)
                 return path
 
@@ -78,7 +78,7 @@ class astar(Maze):
                 open_list.append(neighbor)
 
     def moveSprite(self, results, solver):
-        super().moveSprite(results, solver)
+        super().moveSprite(results, solver) # super() is used to change algorithm name in window title bar
 
     def clearSprite(self):
         self.sprite.clear()

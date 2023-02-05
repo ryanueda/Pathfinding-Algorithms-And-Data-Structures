@@ -40,25 +40,9 @@ class Button(turtle.Turtle):
             turtle.onscreenclick(self.button_click, 1) # Detect a click on the button
         
         else:
-            # turtle.onscreenclick(self.non_default, 1)
             turtle.onscreenclick(func, 1)
 
     # Test if button works as expected
     def button_click(self, x, y):
         if x > self.x and x < (self.x + self.len_x) and y > self.y and y < (self.y + self.len_y):
             print('Button clicked')
-
-    # def non_default(self, x, y):
-    #     if x > self.x and x < (self.x + self.len_x) and y > self.y and y < (self.y + self.len_y):
-    #         turtle.onscreenclick(None)
-    #         self.clear()
-    #         self.parent_turtle.clear()
-    #         self.func()
-
-
-# Test if the button class works as expected
-# if __name__ == '__main__':
-#     button = Button()
-#     main2 = Main()
-#     button.draw_button(-400, -100, 'hello', 'black', 'white', main2.fileio)
-#     turtle.done()

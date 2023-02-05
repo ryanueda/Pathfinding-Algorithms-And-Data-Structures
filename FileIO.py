@@ -12,10 +12,7 @@ class FileIO():
 
     def validation(self):
         filepath = turtle.textinput('Enter File', 'Enter File Name Below:')     # Uses Turtle to get input from user
-        while True:
-            
-            # filepath = 'city_map'   # NOTE: FOR TESTING ONLY
-            
+        while True:            
             try:    # ensures that input filepath regardless of directory or folder
                 cwd = os.getcwd()
                 for root, dirs, files in os.walk(cwd):
